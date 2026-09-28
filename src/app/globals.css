@@ -1,0 +1,72 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 96px;
+  }
+
+  body {
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+  }
+
+  :focus-visible {
+    outline: 2px solid theme("colors.royal");
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  ::selection {
+    background: theme("colors.lavender");
+    color: theme("colors.deep");
+  }
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-content px-5 sm:px-8 lg:px-10;
+  }
+
+  .eyebrow {
+    @apply font-mono text-[11px] uppercase tracking-[0.08em] text-royal;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-control bg-royal px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-deep focus-visible:outline-offset-4;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-control border border-line px-5 py-3 text-sm font-medium text-ink transition-colors hover:border-ink;
+  }
+
+  .btn-text {
+    @apply inline-flex items-center gap-1.5 text-sm font-semibold text-royal transition-colors hover:text-deep;
+  }
+
+  .card {
+    @apply rounded-card border border-line bg-white p-6;
+  }
+
+  .card-tint {
+    @apply rounded-card bg-mist p-6;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
