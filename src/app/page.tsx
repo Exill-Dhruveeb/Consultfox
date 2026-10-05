@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import { Section, SectionHeading } from "@/components/Section";
@@ -11,56 +13,64 @@ import CTASection from "@/components/CTASection";
 import ServiceCard from "@/components/ServiceCard";
 import { serviceGroups, services } from "@/data/services";
 import { caseStudies } from "@/data/caseStudies";
-import { homeFaqs } from "@/data/content";
+import { useLanguage } from "@/context/LanguageContext";
+import { translations } from "@/data/translations";
 
 export default function HomePage() {
+  const { lang } = useLanguage();
+  const t = translations[lang];
+
   return (
     <>
       {/* Hero */}
       <section className="relative overflow-hidden border-b border-line bg-gradient-to-b from-white via-mist/20 to-white py-16 sm:py-24 lg:py-28">
         {/* Subtle purple ambient gradient glow */}
-        <div className="pointer-events-none absolute -top-40 right-0 h-[600px] w-[600px] rounded-full bg-accent/10 blur-3xl" />
-        <div className="pointer-events-none absolute -bottom-40 left-0 h-[500px] w-[500px] rounded-full bg-accent-icon/10 blur-3xl" />
+        <div className="pointer-events-none absolute -top-40 right-0 h-[600px] w-[600px] rounded-full bg-royal/10 blur-3xl" />
+        <div className="pointer-events-none absolute -bottom-40 left-0 h-[500px] w-[500px] rounded-full bg-violet/10 blur-3xl" />
 
         <div className="container-page relative grid gap-12 lg:grid-cols-[1fr_1fr] lg:items-center">
           {/* Left Column: Copy & Actions */}
           <div>
-            <div className="inline-flex items-center gap-2 rounded-full border border-accent/20 bg-mist/50 px-3.5 py-1.5 text-xs font-semibold text-accent">
-              <span className="h-2 w-2 rounded-full bg-accent animate-pulse" />
-              <span>Enterprise Data &amp; AI Consultancy</span>
+            <div className="inline-flex items-center gap-2 rounded-full border border-royal/20 bg-mist/50 px-3.5 py-1.5 text-xs font-semibold text-royal">
+              <span className="h-2 w-2 rounded-full bg-royal animate-pulse" />
+              <span>{t.hero.badge}</span>
             </div>
 
             <h1 className="mt-6 font-display text-4xl font-semibold leading-[1.1] text-ink sm:text-5xl lg:text-[54px]">
-              Data, governed and unified. AI, scaled and trusted.
+              {t.hero.headline}
             </h1>
 
             <p className="mt-6 max-w-xl text-base leading-relaxed text-muted sm:text-lg">
-              Most businesses are sitting on more data than they know what to do with. We build pipelines, warehouses, dashboards, and AI systems that your team actually uses.
+              {t.hero.description}
             </p>
 
             {/* CTAs */}
             <div className="mt-8 flex flex-wrap items-center gap-4">
               <Link href="/contact" className="btn-primary">
-                Talk to our Data &amp; AI Team
+                {t.hero.ctaPrimary}
               </Link>
               <Link href="/case-studies" className="btn-secondary">
-                See our work
+                {t.hero.ctaSecondary}
               </Link>
             </div>
 
-            {/* Value checklist */}
-            <div className="mt-8 grid grid-cols-1 gap-2.5 border-t border-line/70 pt-6 sm:grid-cols-3">
+            {/* Value checklist with 4-6 wk delivery, zero lock in, 100% code handover, and Hosted in the EU */}
+            <div className="mt-8 grid grid-cols-2 gap-3 border-t border-line/70 pt-6 sm:grid-cols-4">
               <div className="flex items-center gap-2 text-xs font-medium text-ink">
-                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-accent/10 font-bold text-accent">✓</span>
-                <span>4-6 wk delivery</span>
+                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-royal/10 font-bold text-royal">✓</span>
+                <span>{t.hero.checklist.delivery}</span>
               </div>
               <div className="flex items-center gap-2 text-xs font-medium text-ink">
-                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-accent/10 font-bold text-accent">✓</span>
-                <span>Zero lock-in</span>
+                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-royal/10 font-bold text-royal">✓</span>
+                <span>{t.hero.checklist.noLockIn}</span>
               </div>
               <div className="flex items-center gap-2 text-xs font-medium text-ink">
-                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-accent/10 font-bold text-accent">✓</span>
-                <span>100% code handover</span>
+                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-royal/10 font-bold text-royal">✓</span>
+                <span>{t.hero.checklist.handover}</span>
+              </div>
+              <div className="flex items-center gap-2 text-xs font-medium text-ink">
+                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-royal/10 font-bold text-royal">✓</span>
+                <span>{t.hero.checklist.euHosted}</span>
               </div>
             </div>
           </div>
@@ -68,7 +78,7 @@ export default function HomePage() {
           {/* Right Column: Creative Platform Visual Frame */}
           <div className="relative">
             {/* Background decorative card / glass frame */}
-            <div className="group relative rounded-2xl border border-line bg-white/80 p-3 shadow-xl backdrop-blur-xs transition-all duration-500 hover:border-accent/30 hover:shadow-2xl sm:p-4">
+            <div className="group relative rounded-2xl border border-line bg-white/80 p-3 shadow-xl backdrop-blur-xs transition-all duration-500 hover:border-royal/30 hover:shadow-2xl sm:p-4">
               {/* Window Header */}
               <div className="mb-3 flex items-center justify-between border-b border-line/70 pb-3">
                 <div className="flex items-center gap-2">
@@ -77,9 +87,9 @@ export default function HomePage() {
                   <span className="h-3 w-3 rounded-full bg-[#81C784]" />
                   <span className="ml-2 font-mono text-[11px] text-muted">consultfox-analytics-platform.internal</span>
                 </div>
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-mist/60 px-2.5 py-0.5 font-mono text-[11px] font-semibold text-accent">
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-mist/60 px-2.5 py-0.5 font-mono text-[11px] font-semibold text-royal">
                   <span className="h-1.5 w-1.5 rounded-full bg-green-500" />
-                  Live System
+                  {t.hero.stats.liveSystem}
                 </span>
               </div>
 
@@ -97,21 +107,21 @@ export default function HomePage() {
 
               {/* Floating Highlight Badge 1: 50+ Deployed */}
               <div className="absolute -bottom-5 -left-4 hidden rounded-xl border border-line bg-white p-3.5 shadow-lg sm:flex sm:items-center sm:gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-accent/10 text-accent">
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-royal/10 text-royal">
                   <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                   </svg>
                 </div>
                 <div>
-                  <p className="font-display text-base font-bold text-ink">50+ Systems</p>
-                  <p className="text-[11px] text-muted">Delivered in production</p>
+                  <p className="font-display text-base font-bold text-ink">{t.hero.stats.systems}</p>
+                  <p className="text-[11px] text-muted">{t.hero.stats.systemsSubtitle}</p>
                 </div>
               </div>
 
               {/* Floating Highlight Badge 2: Partner Stack */}
               <div className="absolute -top-5 -right-4 hidden rounded-xl border border-line bg-white px-3.5 py-2.5 shadow-lg sm:flex sm:items-center sm:gap-2.5">
-                <span className="h-2 w-2 rounded-full bg-accent animate-ping" />
-                <span className="text-xs font-semibold text-ink">Microsoft &amp; Snowflake Stack</span>
+                <span className="h-2 w-2 rounded-full bg-royal animate-ping" />
+                <span className="text-xs font-semibold text-ink">{t.hero.stats.stack}</span>
               </div>
             </div>
           </div>
@@ -121,9 +131,9 @@ export default function HomePage() {
       {/* What we build: grouped pillars */}
       <Section>
         <SectionHeading
-          eyebrow="What we build"
-          title="The full data and AI stack, from raw ingestion to production-ready AI"
-          description="Pick where you're stuck. Every service links through to how we approach it, what it fixes, and what it costs to leave unfixed."
+          eyebrow={t.whatWeBuild.eyebrow}
+          title={t.whatWeBuild.title}
+          description={t.whatWeBuild.description}
         />
         <div className="space-y-14">
           {serviceGroups.map((group) => (
@@ -144,7 +154,7 @@ export default function HomePage() {
         </div>
         <div className="mt-10 text-center">
           <Link href="/services" className="btn-secondary">
-            View all 20 services
+            {t.whatWeBuild.viewAllButton}
           </Link>
         </div>
       </Section>
@@ -152,9 +162,9 @@ export default function HomePage() {
       {/* How we work */}
       <Section tint>
         <SectionHeading
-          eyebrow="How we work"
-          title="Architecture and ownership, not just a delivery team"
-          description="consultfox doesn't just start projects. consultfox finishes them."
+          eyebrow={t.howWeWork.eyebrow}
+          title={t.howWeWork.title}
+          description={t.howWeWork.description}
         />
         <CommitmentsGrid />
       </Section>
@@ -162,9 +172,9 @@ export default function HomePage() {
       {/* Tech Stack */}
       <Section>
         <SectionHeading
-          eyebrow="The Stack We Build On"
-          title="Enterprise-grade tooling, configured for your ecosystem"
-          description="We don't force proprietary tooling. We engineer, optimize, and scale the modern data stack your team already knows."
+          eyebrow={t.techStackSection.eyebrow}
+          title={t.techStackSection.title}
+          description={t.techStackSection.description}
         />
         <TechStack />
       </Section>
@@ -172,9 +182,9 @@ export default function HomePage() {
       {/* Comparison */}
       <Section tint>
         <SectionHeading
-          eyebrow="Why consultfox"
-          title="What we have that others don't"
-          description="Data firms sell promises. We try to sell results."
+          eyebrow={t.comparison.eyebrow}
+          title={t.comparison.title}
+          description={t.comparison.description}
         />
         <ComparisonTable />
       </Section>
@@ -182,9 +192,9 @@ export default function HomePage() {
       {/* Case studies */}
       <Section>
         <SectionHeading
-          eyebrow="Proof"
-          title="The work speaks for itself"
-          description="Real systems, real outcomes, across five industries."
+          eyebrow={t.caseStudiesSection.eyebrow}
+          title={t.caseStudiesSection.title}
+          description={t.caseStudiesSection.description}
         />
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {caseStudies.slice(0, 3).map((study) => (
@@ -193,7 +203,7 @@ export default function HomePage() {
         </div>
         <div className="mt-10 text-center">
           <Link href="/case-studies" className="btn-secondary">
-            View all case studies
+            {t.caseStudiesSection.viewAllButton}
           </Link>
         </div>
       </Section>
@@ -201,17 +211,17 @@ export default function HomePage() {
       {/* Industries */}
       <Section tint>
         <SectionHeading
-          eyebrow="Industries"
-          title="Industries we've worked in"
-          description="Every engagement shaped by domain knowledge, not just technical skills."
+          eyebrow={t.industriesSection.eyebrow}
+          title={t.industriesSection.title}
+          description={t.industriesSection.description}
         />
         <IndustriesGrid />
       </Section>
 
       {/* FAQ */}
       <Section>
-        <SectionHeading eyebrow="Questions" title="Questions we hear most" />
-        <FAQAccordion items={homeFaqs} />
+        <SectionHeading eyebrow={t.faqSection.eyebrow} title={t.faqSection.title} />
+        <FAQAccordion items={t.faqSection.items} />
       </Section>
 
       <CTASection />

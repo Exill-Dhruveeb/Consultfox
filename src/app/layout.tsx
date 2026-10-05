@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { LanguageProvider } from "@/context/LanguageContext";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://consultfox.com"),
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
     template: "%s | consultfox",
   },
   description:
-    "consultfox is an AI-first data company. We build pipelines, warehouses, dashboards, and AI systems that your team actually uses, with 50+ systems delivered across financial services, healthcare, retail, and more.",
+    "consultfox is an AI-first data company based in Berlin. We build pipelines, warehouses, dashboards, and AI systems that your team actually uses, with 50+ systems delivered across financial services, healthcare, retail, and more.",
   openGraph: {
     title: "consultfox - Data, Governed and Unified. AI, Scaled and Trusted.",
     description:
@@ -43,9 +44,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         >
           Skip to content
         </a>
-        <Header />
-        <main id="main">{children}</main>
-        <Footer />
+        <LanguageProvider>
+          <Header />
+          <main id="main">{children}</main>
+          <Footer />
+        </LanguageProvider>
       </body>
     </html>
   );

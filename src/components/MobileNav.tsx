@@ -2,11 +2,15 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { primaryNav } from "@/data/nav";
 import { services, serviceGroups } from "@/data/services";
+import LanguageToggle from "@/components/LanguageToggle";
+import { useLanguage } from "@/context/LanguageContext";
+import { translations, serviceTranslations } from "@/data/translations";
 
 export default function MobileNav({ open, onClose }: { open: boolean; onClose: () => void }) {
   const [servicesExpanded, setServicesExpanded] = useState(false);
+  const { lang } = useLanguage();
+  const t = translations[lang];
 
   if (!open) return null;
 
@@ -19,7 +23,10 @@ export default function MobileNav({ open, onClose }: { open: boolean; onClose: (
       />
       <div className="absolute inset-y-0 right-0 flex w-[86%] max-w-sm flex-col overflow-y-auto bg-white pb-[env(safe-area-inset-bottom)] pt-[env(safe-area-inset-top)] shadow-[0_0_40px_rgba(0,0,0,0.15)]">
         <div className="flex h-20 items-center justify-between border-b border-line px-5">
-          <span className="font-display text-base font-bold">Menu</span>
+          <div className="flex items-center gap-3">
+            <span className="font-display text-base font-bold">Menu</span>
+            <LanguageToggle size="sm" />
+          </div>
           <button
             aria-label="Close menu"
             onClick={onClose}
@@ -37,7 +44,7 @@ export default function MobileNav({ open, onClose }: { open: boolean; onClose: (
             aria-expanded={servicesExpanded}
             onClick={() => setServicesExpanded((v) => !v)}
           >
-            Services
+            {t.nav.services}
             <svg
               width="12" height="8" viewBox="0 0 12 8" fill="none" aria-hidden="true"
               className={`transition-transform ${servicesExpanded ? "rotate-180" : ""}`}
@@ -54,34 +61,32 @@ export default function MobileNav({ open, onClose }: { open: boolean; onClose: (
                   <ul className="space-y-2">
                     {services
                       .filter((s) => s.group === group)
-                      .map((s) => (
-                        <li key={s.slug}>
-                          <Link href={`/services/${s.slug}`} className="text-sm text-ink" onClick={onClose}>
-                            {s.name}
-                          </Link>
-                        </li>
-                      ))}
+                      .map((s) => {
+                        const localizedName = serviceTranslations[s.slug]?.[lang]?.name || s.name;
+                        return (
+                          <li key={s.slug}>
+                            <Link href={`/services/${s.slug}`} className="text-sm text-ink" onClick={onClose}>
+                              {localizedName}
+                            </Link>
+                          </li>
+                        );
+                      })}
                   </ul>
                 </div>
               ))}
             </div>
           )}
 
-          {primaryNav
-            .filter((item) => item.label !== "Services")
-            .map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="border-t border-line py-3 text-base font-medium text-ink"
-                onClick={onClose}
-              >
-                {item.label}
-              </Link>
-            ))}
+          <Link
+            href="/case-studies"
+            className="border-t border-line py-3 text-base font-medium text-ink"
+            onClick={onClose}
+          >
+            {t.nav.caseStudies}
+          </Link>
 
           <Link href="/contact" className="btn-primary mt-4 w-full" onClick={onClose}>
-            Contact
+            {t.nav.contact}
           </Link>
         </nav>
       </div>

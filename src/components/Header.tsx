@@ -2,14 +2,18 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { primaryNav } from "@/data/nav";
 import { services, serviceGroups } from "@/data/services";
 import Logo from "@/components/Logo";
 import MobileNav from "@/components/MobileNav";
+import LanguageToggle from "@/components/LanguageToggle";
+import { useLanguage } from "@/context/LanguageContext";
+import { translations, serviceTranslations } from "@/data/translations";
 
 export default function Header() {
   const [servicesOpen, setServicesOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { lang } = useLanguage();
+  const t = translations[lang];
 
   return (
     <header className="sticky top-0 z-40 border-b border-line bg-white/95 backdrop-blur">
@@ -25,12 +29,12 @@ export default function Header() {
             onMouseLeave={() => setServicesOpen(false)}
           >
             <button
-              className="flex items-center gap-1.5 text-sm font-medium text-ink"
+              className="flex items-center gap-1.5 text-sm font-medium text-ink transition-colors hover:text-royal"
               aria-expanded={servicesOpen}
               aria-haspopup="true"
               onClick={() => setServicesOpen((v) => !v)}
             >
-              Services
+              {t.nav.services}
               <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true">
                 <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
               </svg>
@@ -47,24 +51,27 @@ export default function Header() {
                       <ul className="space-y-2.5">
                         {services
                           .filter((s) => s.group === group)
-                          .map((s) => (
-                            <li key={s.slug}>
-                              <Link
-                                href={`/services/${s.slug}`}
-                                className="text-sm text-ink transition-colors hover:text-royal"
-                                onClick={() => setServicesOpen(false)}
-                              >
-                                {s.name}
-                              </Link>
-                            </li>
-                          ))}
+                          .map((s) => {
+                            const localizedName = serviceTranslations[s.slug]?.[lang]?.name || s.name;
+                            return (
+                              <li key={s.slug}>
+                                <Link
+                                  href={`/services/${s.slug}`}
+                                  className="text-sm text-ink transition-colors hover:text-royal"
+                                  onClick={() => setServicesOpen(false)}
+                                >
+                                  {localizedName}
+                                </Link>
+                              </li>
+                            );
+                          })}
                       </ul>
                     </div>
                   ))}
                   <div className="col-span-3 flex items-center justify-between border-t border-line pt-5">
-                    <p className="text-sm text-muted">Not sure where to start?</p>
+                    <p className="text-sm text-muted">{t.nav.notSureWhereToStart}</p>
                     <Link href="/services" className="btn-text" onClick={() => setServicesOpen(false)}>
-                      View all services
+                      {t.nav.viewAllServices}
                       <svg width="12" height="10" viewBox="0 0 12 10" fill="none" aria-hidden="true">
                         <path d="M1 5H11M11 5L7 1M11 5L7 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>
@@ -75,18 +82,15 @@ export default function Header() {
             )}
           </div>
 
-          {primaryNav
-            .filter((item) => item.label !== "Services")
-            .map((item) => (
-              <Link key={item.href} href={item.href} className="text-sm font-medium text-ink transition-colors hover:text-royal">
-                {item.label}
-              </Link>
-            ))}
+          <Link href="/case-studies" className="text-sm font-medium text-ink transition-colors hover:text-royal">
+            {t.nav.caseStudies}
+          </Link>
         </nav>
 
         <div className="flex items-center gap-3">
+          <LanguageToggle />
           <Link href="/contact" className="btn-primary hidden sm:inline-flex">
-            Contact
+            {t.nav.contact}
           </Link>
           <button
             className="grid h-10 w-10 place-items-center rounded-control border border-line lg:hidden"

@@ -1,10 +1,17 @@
+"use client";
+
 import Link from "next/link";
 import Logo from "@/components/Logo";
 import { footerCompanyLinks, footerLegalLinks } from "@/data/nav";
 import { serviceGroups, services } from "@/data/services";
 import { companyInfo } from "@/data/content";
+import { useLanguage } from "@/context/LanguageContext";
+import { translations, serviceTranslations } from "@/data/translations";
 
 export default function Footer() {
+  const { lang } = useLanguage();
+  const t = translations[lang];
+
   return (
     <footer className="border-t border-line bg-mist">
       <div className="container-page py-16">
@@ -12,17 +19,16 @@ export default function Footer() {
           <div>
             <Logo />
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted">
-              AI-first data company. We build pipelines, warehouses, dashboards, and AI systems that
-              your team actually uses.
+              {t.footer.tagline}
             </p>
             <div className="mt-6 flex gap-4">
-              <a href={companyInfo.socials.linkedin} aria-label="consultfox on LinkedIn" className="text-muted hover:text-royal">
+              <a href={companyInfo.socials.linkedin} target="_blank" rel="noopener noreferrer" aria-label="consultfox on LinkedIn" className="text-muted hover:text-royal transition-colors">
                 LinkedIn
               </a>
-              <a href={companyInfo.socials.twitter} aria-label="consultfox on X" className="text-muted hover:text-royal">
+              <a href={companyInfo.socials.twitter} target="_blank" rel="noopener noreferrer" aria-label="consultfox on X" className="text-muted hover:text-royal transition-colors">
                 X
               </a>
-              <a href={companyInfo.socials.instagram} aria-label="consultfox on Instagram" className="text-muted hover:text-royal">
+              <a href={companyInfo.socials.instagram} target="_blank" rel="noopener noreferrer" aria-label="consultfox on Instagram" className="text-muted hover:text-royal transition-colors">
                 Instagram
               </a>
             </div>
@@ -35,58 +41,77 @@ export default function Footer() {
                 <ul className="space-y-2">
                   {services
                     .filter((s) => s.group === group)
-                    .map((s) => (
-                      <li key={s.slug}>
-                        <Link href={`/services/${s.slug}`} className="text-sm text-ink hover:text-royal">
-                          {s.name}
-                        </Link>
-                      </li>
-                    ))}
+                    .map((s) => {
+                      const localizedName = serviceTranslations[s.slug]?.[lang]?.name || s.name;
+                      return (
+                        <li key={s.slug}>
+                          <Link href={`/services/${s.slug}`} className="text-sm text-ink hover:text-royal transition-colors">
+                            {localizedName}
+                          </Link>
+                        </li>
+                      );
+                    })}
                 </ul>
               </div>
             ))}
           </div>
 
           <div>
-            <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.06em] text-muted">Company</p>
+            <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.06em] text-muted">
+              {lang === "de" ? "Unternehmen" : "Company"}
+            </p>
             <ul className="space-y-2">
-              {footerCompanyLinks.map((l) => (
-                <li key={l.href}>
-                  <Link href={l.href} className="text-sm text-ink hover:text-royal">
-                    {l.label}
-                  </Link>
-                </li>
-              ))}
+              <li>
+                <Link href="/services" className="text-sm text-ink hover:text-royal transition-colors">
+                  {t.nav.services}
+                </Link>
+              </li>
+              <li>
+                <Link href="/case-studies" className="text-sm text-ink hover:text-royal transition-colors">
+                  {t.nav.caseStudies}
+                </Link>
+              </li>
+              <li>
+                <Link href="/contact" className="text-sm text-ink hover:text-royal transition-colors">
+                  {t.nav.contact}
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
 
         <div className="mt-14 grid gap-8 border-t border-line pt-10 sm:grid-cols-3">
           <div>
-            <p className="text-[11px] font-semibold uppercase tracking-[0.06em] text-muted">Call us</p>
-            <a href={companyInfo.phoneHref} className="mt-1 block text-sm text-ink hover:text-royal">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.06em] text-muted">
+              {lang === "de" ? "Anrufen" : "Call us"}
+            </p>
+            <a href={companyInfo.phoneHref} className="mt-1 block text-sm text-ink hover:text-royal transition-colors">
               {companyInfo.phone}
             </a>
           </div>
           <div>
-            <p className="text-[11px] font-semibold uppercase tracking-[0.06em] text-muted">Email us</p>
-            <a href={`mailto:${companyInfo.email}`} className="mt-1 block text-sm text-ink hover:text-royal">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.06em] text-muted">
+              {lang === "de" ? "E-Mail" : "Email us"}
+            </p>
+            <a href={`mailto:${companyInfo.email}`} className="mt-1 block text-sm text-ink hover:text-royal transition-colors">
               {companyInfo.email}
             </a>
           </div>
           <div>
-            <p className="text-[11px] font-semibold uppercase tracking-[0.06em] text-muted">Location</p>
-            <a href={companyInfo.mapsUrl} className="mt-1 block text-sm text-ink hover:text-royal">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.06em] text-muted">
+              {lang === "de" ? "Standort" : "Location"}
+            </p>
+            <a href={companyInfo.mapsUrl} target="_blank" rel="noopener noreferrer" className="mt-1 block text-sm text-ink hover:text-royal transition-colors">
               {companyInfo.address}
             </a>
           </div>
         </div>
 
         <div className="mt-10 flex flex-col gap-4 border-t border-line pt-6 text-xs text-muted sm:flex-row sm:items-center sm:justify-between">
-          <p>© {new Date().getFullYear()} consultfox. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} consultfox. {t.footer.copyright}</p>
           <div className="flex flex-wrap gap-5">
             {footerLegalLinks.map((l) => (
-              <Link key={l.href} href={l.href} className="hover:text-royal">
+              <Link key={l.href} href={l.href} className="hover:text-royal transition-colors">
                 {l.label}
               </Link>
             ))}

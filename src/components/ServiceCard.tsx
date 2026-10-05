@@ -1,7 +1,17 @@
+"use client";
+
 import Link from "next/link";
 import { Service } from "@/data/services";
+import { useLanguage } from "@/context/LanguageContext";
+import { translations, serviceTranslations } from "@/data/translations";
 
 export default function ServiceCard({ service }: { service: Service }) {
+  const { lang } = useLanguage();
+  const t = translations[lang];
+  const localized = serviceTranslations[service.slug]?.[lang];
+
+  const name = localized?.name || service.name;
+  const pitch = localized?.pitch || service.pitch;
   const imageSrc = service.image || "/images/data-warehouse.png";
 
   return (
@@ -14,7 +24,7 @@ export default function ServiceCard({ service }: { service: Service }) {
         <div className="absolute -right-6 -top-6 h-24 w-24 rounded-full bg-violet/10 blur-xl transition-all duration-300 group-hover:scale-150 group-hover:bg-violet/20" />
         <img
           src={imageSrc}
-          alt={service.name}
+          alt={name}
           className="relative z-10 max-h-36 max-w-full object-contain transition-transform duration-300 group-hover:scale-105"
           loading="lazy"
         />
@@ -26,14 +36,14 @@ export default function ServiceCard({ service }: { service: Service }) {
             {service.group}
           </span>
           <h3 className="mt-2.5 font-display text-base font-semibold text-ink transition-colors group-hover:text-royal">
-            {service.name}
+            {name}
           </h3>
-          <p className="mt-2 text-sm leading-relaxed text-muted line-clamp-2">{service.pitch}</p>
+          <p className="mt-2 text-sm leading-relaxed text-muted line-clamp-2">{pitch}</p>
         </div>
 
         <div className="mt-6 flex items-center justify-between border-t border-line/50 pt-4">
           <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-royal transition-colors group-hover:text-deep">
-            Explore service
+            {t.servicesPage.exploreService}
             <svg
               width="14"
               height="12"
