@@ -11,7 +11,7 @@ interface LanguageContextType {
 }
 
 const LanguageContext = createContext<LanguageContextType>({
-  lang: "en",
+  lang: "de",
   setLang: () => {},
   toggleLang: () => {},
 });
@@ -19,7 +19,8 @@ const LanguageContext = createContext<LanguageContextType>({
 const STORAGE_KEY = "consultfox_lang";
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [lang, setLangState] = useState<Language>("en");
+  // Default language is German ("de")
+  const [lang, setLangState] = useState<Language>("de");
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -27,12 +28,11 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
       const saved = localStorage.getItem(STORAGE_KEY) as Language | null;
       if (saved === "en" || saved === "de") {
         setLangState(saved);
+        document.documentElement.lang = saved;
       } else {
-        // Check browser language
-        const browserLang = navigator.language?.toLowerCase() || "";
-        if (browserLang.startsWith("de")) {
-          setLangState("de");
-        }
+        // Default to German
+        setLangState("de");
+        document.documentElement.lang = "de";
       }
     } catch {
       // localStorage not accessible
@@ -51,7 +51,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   };
 
   const toggleLang = () => {
-    setLang(lang === "en" ? "de" : "en");
+    setLang(lang === "de" ? "en" : "de");
   };
 
   return (
@@ -62,5 +62,9 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
 }
 
 export function useLanguage() {
-  return useContext(LanguageContext);
+  const context = useContext(LanguageContext);
+  if (!context) {
+    throw new Error("useLanguage must be used within a LanguageProvider");
+  }
+  return context;
 }

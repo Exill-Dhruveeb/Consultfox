@@ -18,7 +18,7 @@ export const metadata: Metadata = {
       "We build pipelines, warehouses, dashboards, and AI systems that your team actually uses.",
     url: "https://consultfox.com",
     siteName: "consultfox",
-    locale: "en_US",
+    locale: "de_DE",
     type: "website",
   },
   twitter: {
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="de">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />

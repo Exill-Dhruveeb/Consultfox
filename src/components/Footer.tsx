@@ -7,6 +7,7 @@ import { serviceGroups, services } from "@/data/services";
 import { companyInfo } from "@/data/content";
 import { useLanguage } from "@/context/LanguageContext";
 import { translations, serviceTranslations } from "@/data/translations";
+import LanguageToggle from "@/components/LanguageToggle";
 
 export default function Footer() {
   const { lang } = useLanguage();
@@ -109,7 +110,8 @@ export default function Footer() {
 
         <div className="mt-10 flex flex-col gap-4 border-t border-line pt-6 text-xs text-muted sm:flex-row sm:items-center sm:justify-between">
           <p>© {new Date().getFullYear()} consultfox. {t.footer.copyright}</p>
-          <div className="flex flex-wrap gap-5">
+          <div className="flex flex-wrap items-center gap-4">
+            <LanguageToggle size="sm" />
             {footerLegalLinks.map((l) => (
               <Link key={l.href} href={l.href} className="hover:text-royal transition-colors">
                 {l.label}
