@@ -14,6 +14,7 @@ export interface Translations {
     description: string;
     ctaPrimary: string;
     ctaSecondary: string;
+    supportingStatement?: string;
     checklist: {
       delivery: string;
       noLockIn: string;
@@ -37,6 +38,12 @@ export interface Translations {
     eyebrow: string;
     title: string;
     description: string;
+    steps?: {
+      step: string;
+      title: string;
+      whatHappens: string;
+      deliverable: string;
+    }[];
     commitments: {
       title: string;
       body: string;
@@ -168,12 +175,13 @@ export const translations: Record<Language, Translations> = {
       notSureWhereToStart: "Not sure where to start?",
     },
     hero: {
-      badge: "Enterprise Data & AI Consultancy",
-      headline: "Data, governed and unified. AI, scaled and trusted.",
+      badge: "DATA ENGINEERING · ANALYTICS · AI",
+      headline: "Make your data work harder.",
       description:
-        "Most businesses are sitting on more data than they know what to do with. We build pipelines, warehouses, dashboards, and AI systems that your team actually uses.",
-      ctaPrimary: "Talk to our Data & AI Team",
-      ctaSecondary: "See our work",
+        "We help businesses build reliable data pipelines, analytics platforms, and AI solutions that turn disconnected information into better decisions.",
+      ctaPrimary: "Discuss Your Project",
+      ctaSecondary: "Explore Our Work",
+      supportingStatement: "Clear architecture. Documented code. A handover your team can own.",
       checklist: {
         delivery: "4-6 wk delivery",
         noLockIn: "Zero lock-in",
@@ -188,16 +196,54 @@ export const translations: Record<Language, Translations> = {
       },
     },
     whatWeBuild: {
-      eyebrow: "What we build",
-      title: "The full data and AI stack, from raw ingestion to production-ready AI",
+      eyebrow: "Services",
+      title: "Core engineering disciplines for scalable data and AI",
       description:
-        "Pick where you're stuck. Every service links through to how we approach it, what it fixes, and what it costs to leave unfixed.",
-      viewAllButton: "View all 20 services",
+        "We engineer reliable data infrastructure across four primary pillars—from ingestion and warehouse architecture to production AI workflows.",
+      viewAllButton: "View full service catalogue (20 services)",
     },
     howWeWork: {
-      eyebrow: "How we work",
-      title: "Architecture and ownership, not just a delivery team",
-      description: "consultfox doesn't just start projects. consultfox finishes them.",
+      eyebrow: "Our Process",
+      title: "A disciplined, numbered engineering timeline",
+      description:
+        "Every engagement follows a structured 5-stage lifecycle. No open-ended retainers, no disappearing acts.",
+      steps: [
+        {
+          step: "01",
+          title: "Discovery",
+          whatHappens:
+            "We inspect your existing source systems, reporting bottlenecks, security constraints, and business goals through focused technical interviews.",
+          deliverable: "Technical discovery summary and prioritized engagement roadmap.",
+        },
+        {
+          step: "02",
+          title: "Assessment",
+          whatHappens:
+            "Our senior engineers audit schema reliability, compute overhead, pipeline latency, and data quality across your stack.",
+          deliverable: "Gap analysis, benchmark audit, and fixed-scope delivery proposal.",
+        },
+        {
+          step: "03",
+          title: "Architecture and Planning",
+          whatHappens:
+            "We formulate the target state data model, select appropriate cloud tooling (Snowflake, Fabric, dbt), and structure modular transformation tiers.",
+          deliverable: "Production architecture diagram, schema definitions, and sprint milestones.",
+        },
+        {
+          step: "04",
+          title: "Implementation and Testing",
+          whatHappens:
+            "We engineer resilient pipelines, semantic data marts, or custom AI agents with automated CI/CD validation and unit testing.",
+          deliverable: "Tested codebase, automated data quality assertions, and staging deployment.",
+        },
+        {
+          step: "05",
+          title: "Deployment and Handover",
+          whatHappens:
+            "We execute production deployment to your tenant, run interactive handover workshops, and provide complete operational runbooks.",
+          deliverable: "100% code ownership, runbooks, and self-sufficient team handover.",
+        },
+      ],
       commitments: [
         {
           title: "Work committed",
@@ -412,9 +458,9 @@ export const translations: Record<Language, Translations> = {
       ],
     },
     ctaSection: {
-      title: "Ready to fix your data layer?",
-      body: "Book a 30-minute discovery call with our engineering team. We'll review your architecture, identify your biggest bottlenecks, and map out a clear path forward.",
-      button: "Book a Discovery Call",
+      title: "Let's solve your data challenge.",
+      body: "Tell us what you're trying to build. We'll help you identify the right next step.",
+      button: "Discuss Your Project",
     },
     contactPage: {
       eyebrow: "Contact",
@@ -460,12 +506,13 @@ export const translations: Record<Language, Translations> = {
       notSureWhereToStart: "Nicht sicher, wo Sie anfangen sollen?",
     },
     hero: {
-      badge: "Enterprise Data & KI-Beratung",
-      headline: "Daten: gesteuert und vereint. KI: skaliert und vertrauenswürdig.",
+      badge: "DATEN-ENGINEERING · ANALYTIK · KI",
+      headline: "Machen Sie mehr aus Ihren Daten.",
       description:
-        "Die meisten Unternehmen sitzen auf mehr Daten, als sie nutzen können. Wir entwickeln Pipelines, Data Warehouses, Dashboards und KI-Systeme, die Ihr Team wirklich nutzt.",
-      ctaPrimary: "Mit unserem Data- & KI-Team sprechen",
-      ctaSecondary: "Unsere Projekte",
+        "Wir helfen Unternehmen, zuverlässige Datenpipelines, Analyseplattformen und KI-Lösungen aufzubauen, die aus fragmentierten Informationen bessere Entscheidungen machen.",
+      ctaPrimary: "Projekt besprechen",
+      ctaSecondary: "Unsere Arbeit ansehen",
+      supportingStatement: "Klare Architektur. Dokumentierter Code. Eine Übergabe, die Ihr Team selbst betreiben kann.",
       checklist: {
         delivery: "4-6 Wochen Lieferzeit",
         noLockIn: "Kein Vendor Lock-in",
@@ -480,16 +527,54 @@ export const translations: Record<Language, Translations> = {
       },
     },
     whatWeBuild: {
-      eyebrow: "Was wir entwickeln",
-      title: "Der komplette Daten- und KI-Stack: Von der Rohdaten-Erfassung bis zur produktionsreifen KI",
+      eyebrow: "Dienstleistungen",
+      title: "Kernkompetenzen für skalierbare Daten- und KI-Systeme",
       description:
-        "Wählen Sie Ihren Engpass. Jede Leistung zeigt auf, wie wir vorgehen, welches Problem gelöst wird und was es kostet, es ungelöst zu lassen.",
-      viewAllButton: "Alle 20 Dienstleistungen anzeigen",
+        "Wir entwickeln robuste Dateninfrastrukturen entlang vier zentraler Säulen – von der Datenerfassung und Warehouse-Architektur bis hin zu produktiven KI-Workflows.",
+      viewAllButton: "Gesamten Leistungskatalog ansehen (20 Services)",
     },
     howWeWork: {
-      eyebrow: "Unsere Arbeitsweise",
-      title: "Architektur und Eigentum, nicht nur ein Lieferteam",
-      description: "consultfox startet Projekte nicht nur. consultfox bringt sie verlässlich ins Ziel.",
+      eyebrow: "Unser Vorgehen",
+      title: "Ein strukturierter, fünfstufiger Engineering-Ablauf",
+      description:
+        "Jedes Vorhaben folgt einem klaren 5-Phasen-Lebenszyklus. Keine unendlichen Retainer, keine Überraschungen.",
+      steps: [
+        {
+          step: "01",
+          title: "Discovery",
+          whatHappens:
+            "Wir analysieren Ihre Quellsysteme, Berichtsengpässe, Sicherheitsanforderungen und geschäftlichen Ziele in fokussierten technischen Interviews.",
+          deliverable: "Technischer Discovery-Bericht und priorisierte Umsetzungs-Roadmap.",
+        },
+        {
+          step: "02",
+          title: "Assessment",
+          whatHappens:
+            "Unsere Senior Engineers prüfen Schemazuverlässigkeit, Rechenkosten, Pipeline-Latenzen und Datenqualität in Ihrem gesamten Stack.",
+          deliverable: "Gap-Analyse, Benchmark-Audit und verbindliches Projektangebot mit Festpreis/Scope.",
+        },
+        {
+          step: "03",
+          title: "Architektur und Planung",
+          whatHappens:
+            "Wir entwerfen das Zieldatenmodell, wählen passende Cloud-Tools (Snowflake, Fabric, dbt) und gliedern modulare Transformationsschichten.",
+          deliverable: "Produktions-Architekturdiagramm, Schemaspezifikationen und Sprint-Meilensteine.",
+        },
+        {
+          step: "04",
+          title: "Implementierung und Testing",
+          whatHappens:
+            "Wir entwickeln widerstandsfähige Pipelines, Data Marts oder maßgeschneiderte KI-Agenten mit automatisierter CI/CD-Validierung und Regressionstests.",
+          deliverable: "Getestete Codebasis, automatische Datenqualitätsprüfungen und Staging-Deployment.",
+        },
+        {
+          step: "05",
+          title: "Deployment und Übergabe",
+          whatHappens:
+            "Wir führen das unterbrechungsfreie Produktions-Deployment in Ihrer Cloud durch, leiten interaktive Workshops und erstellen umfassende Runbooks.",
+          deliverable: "100% Code- und Repository-Eigentum, Runbooks und vollständige Autonomie Ihres Teams.",
+        },
+      ],
       commitments: [
         {
           title: "Verbindliche Lieferung",
@@ -704,9 +789,9 @@ export const translations: Record<Language, Translations> = {
       ],
     },
     ctaSection: {
-      title: "Bereit, Ihre Datenarchitektur zu transformieren?",
-      body: "Buchen Sie ein 30-minütiges Erstgespräch mit unserem Engineering-Team. Wir analysieren Ihre Architektur, identifizieren Engpässe und skizzieren eine klare Roadmap.",
-      button: "Erstgespräch buchen",
+      title: "Lassen Sie uns Ihre Datenherausforderung lösen.",
+      body: "Sagen Sie uns, was Sie aufbauen möchten. Wir helfen Ihnen, den richtigen nächsten Schritt zu definieren.",
+      button: "Projekt besprechen",
     },
     contactPage: {
       eyebrow: "Kontakt",

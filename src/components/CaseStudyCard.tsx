@@ -18,56 +18,39 @@ export default function CaseStudyCard({ study }: { study: CaseStudy }) {
   return (
     <Link
       href={`/case-studies/${study.slug}`}
-      className="group flex h-full flex-col justify-between overflow-hidden rounded-card border border-line bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-royal/50 hover:shadow-lg"
+      className="group flex h-full flex-col justify-between overflow-hidden rounded-card border border-line bg-white shadow-2xs transition-all duration-200 hover:border-royal"
     >
-      <div className="relative h-48 w-full overflow-hidden bg-mist/60">
+      <div className="relative h-44 w-full overflow-hidden border-b border-line bg-canvas">
         <img
           src={imageSrc}
           alt={title}
-          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+          className="h-full w-full object-cover"
           loading="lazy"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-ink/30 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-        <span className="absolute left-3 top-3 rounded-full bg-white/95 backdrop-blur px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-deep shadow-sm">
+        <span className="absolute left-3 top-3 rounded-control bg-white/95 px-2 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-wider text-secondary shadow-2xs">
           {industry}
         </span>
       </div>
 
       <div className="flex flex-1 flex-col justify-between p-6">
         <div>
-          <p className="text-xs font-medium text-royal">
+          <p className="font-mono text-xs text-royal font-medium">
             {lang === "de" ? "Kunde" : "Client"}: {study.client}
           </p>
-          <h3 className="mt-2 font-display text-lg font-semibold text-ink transition-colors group-hover:text-royal">
-            {title}
-          </h3>
-          <p className="mt-2 text-sm leading-relaxed text-muted line-clamp-3">{summary}</p>
+          <div className="mt-2 min-h-[52px] flex items-center">
+            <h3 className="font-display text-base font-semibold text-ink leading-snug transition-colors group-hover:text-royal line-clamp-2">
+              {title}
+            </h3>
+          </div>
+          <p className="mt-2 min-h-[60px] text-sm leading-relaxed text-secondary line-clamp-3">
+            {summary}
+          </p>
         </div>
 
-        <div className="mt-6 flex items-center justify-between border-t border-line/50 pt-4">
-          <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-royal transition-colors group-hover:text-deep">
+        <div className="mt-6 flex items-center justify-between border-t border-line pt-4">
+          <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-royal group-hover:underline">
             {t.caseStudiesSection.readCaseStudy}
-            <svg
-              width="14"
-              height="12"
-              viewBox="0 0 12 10"
-              fill="none"
-              aria-hidden="true"
-              className="transition-transform duration-200 group-hover:translate-x-1"
-            >
-              <path
-                d="M1 5H11M11 5L7 1M11 5L7 9"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </span>
-          <span className="grid h-7 w-7 place-items-center rounded-full bg-mist text-royal transition-colors group-hover:bg-royal group-hover:text-white">
-            <svg width="10" height="10" viewBox="0 0 12 10" fill="none" aria-hidden="true">
-              <path d="M1 5H11M11 5L7 1M11 5L7 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
+            <span>→</span>
           </span>
         </div>
       </div>

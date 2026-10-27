@@ -1,101 +1,134 @@
 "use client";
 
-import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
-import { translations } from "@/data/translations";
 
-const industryIcons: Record<number, React.ReactNode> = {
-  0: (
-    <svg className="h-6 w-6 text-royal" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-    </svg>
-  ),
-  1: (
-    <svg className="h-6 w-6 text-royal" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-    </svg>
-  ),
-  2: (
-    <svg className="h-6 w-6 text-royal" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-    </svg>
-  ),
-  3: (
-    <svg className="h-6 w-6 text-royal" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-    </svg>
-  ),
-  4: (
-    <svg className="h-6 w-6 text-royal" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M13 10V3L4 14h7v7l9-11h-7z" />
-    </svg>
-  ),
-  5: (
-    <svg className="h-6 w-6 text-royal" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-    </svg>
-  ),
-};
+interface IndustryItem {
+  nameDe: string;
+  nameEn: string;
+  challengeDe: string;
+  challengeEn: string;
+  solutionDe: string;
+  solutionEn: string;
+}
+
+const industries: IndustryItem[] = [
+  {
+    nameDe: "Handel & E-Commerce",
+    nameEn: "Retail & E-Commerce",
+    challengeDe:
+      "Fragmentierte Bestelldaten über Shopify, Amazon und ERP-Systeme; ungenaue Absatzprognosen und hohe Retourenquoten.",
+    challengeEn:
+      "Fragmented order streams across Shopify, Amazon, and ERP systems; inaccurate inventory forecasts and high return rates.",
+    solutionDe:
+      "Zentrales Snowflake-Lakehouse mit automatisierter Bestandssynchronisation, Kundenwertanalysen (CLV) und Nachfrageprognosen.",
+    solutionEn:
+      "Centralized Snowflake lakehouse with automated stock reconciliation, customer lifetime value modeling, and predictive demand forecasts.",
+  },
+  {
+    nameDe: "Healthcare & MedTech",
+    nameEn: "Healthcare & Life Sciences",
+    challengeDe:
+      "Strenge DSGVO- und Patientendatenschutz-Auflagen; unstrukturierte klinische Befunde und silobehaftete Laborsysteme.",
+    challengeEn:
+      "Stringent GDPR and HIPAA compliance mandates; unindexed clinical PDFs and siloed laboratory test records.",
+    solutionDe:
+      "Rollenbasierte, pseudonymisierte Datenpipelines mit privater RAG-Wissenssuche für medizinisches Fachpersonal und Audit-Logs.",
+    solutionEn:
+      "Role-governed pseudonymized data pipelines with private RAG knowledge retrieval for clinical staff and immutable audit trails.",
+  },
+  {
+    nameDe: "Finanzdienstleistungen & Banking",
+    nameEn: "Finance & Fintech",
+    challengeDe:
+      "Hohe Transaktionsvolumina mit Latenzdruck; manuelle Abstimmungsprozesse für behördliche Meldepflichten (BaFin/EZB).",
+    challengeEn:
+      "Sub-second streaming throughput requirements; error-prone manual spreadsheets for regulatory compliance and audit filings.",
+    solutionDe:
+      "Echtzeitfähige Streaming-Architekturen mit Spark und dbt; automatisierte Konsolidierung von Hauptbüchern und Risikoberichten.",
+    solutionEn:
+      "Low-latency streaming architectures with Spark and dbt; automated reconciliation of general ledgers and regulatory risk models.",
+  },
+  {
+    nameDe: "Gastronomie & Systemverpflegung (QSR)",
+    nameEn: "Restaurant & Multi-Unit QSR",
+    challengeDe:
+      "Datenbrüche zwischen Kassensystemen (POS), Lieferplattformen (Lieferando/UberEats) und Personaleinsatzplanung bei 50+ Filialen.",
+    challengeEn:
+      "Discrepancies between store POS terminals, delivery aggregators, and labor scheduling software across 50+ franchise sites.",
+    solutionDe:
+      "Konsolidierte Filial-Dashboards in Power BI mit minutengenauer Umsatz-zu-Personalkosten-Korrelation und Marketing-Attribution.",
+    solutionEn:
+      "Consolidated multi-unit Power BI dashboards correlating labor hours against hourly sales tickets and promotional ad spend.",
+  },
+  {
+    nameDe: "Fertigung & Industrie",
+    nameEn: "Manufacturing & Industrial Supply Chain",
+    challengeDe:
+      "Getrennte OT- und IT-Datenwelten; Maschinenausfälle ohne Frühwarnung und lückenhafte Chargen-Rückverfolgbarkeit.",
+    challengeEn:
+      "Disconnected operational technology (OT) and enterprise IT data; unpredicted machine downtime and fragmented batch traceability.",
+    solutionDe:
+      "IoT-Telemetrie-Ingestion mit Zeitreihendatenbanken, automatisierte Schwellenwert-Alarme und lückenlose Chargen-Stammbäume.",
+    solutionEn:
+      "High-throughput IoT telemetry ingestion pipelines, predictive maintenance anomaly alerts, and end-to-end lot genealogy.",
+  },
+  {
+    nameDe: "B2B-Distribution & Großhandel",
+    nameEn: "B2B Distribution & Wholesale",
+    challengeDe:
+      "Geringe Kontaktraten bei manueller Vertriebsakquise, veraltete CRM-Daten und mangelnde Transparenz über Margenverluste.",
+    challengeEn:
+      "Low SDR outbound connection rates, missing CRM updates, and zero real-time visibility into customer pricing erosion.",
+    solutionDe:
+      "Autonome Sprach- und E-Mail-Qualifizierungsagenten mit sub-sekundenschnellem CRM-Sync und dynamischen Deckungsbeitrags-Dashboards.",
+    solutionEn:
+      "Autonomous conversational outbound voice agents with real-time CRM sync and dynamic margin contribution analytics.",
+  },
+];
 
 export default function IndustriesGrid() {
   const { lang } = useLanguage();
-  const industriesList = translations[lang].industriesSection.items;
 
   return (
-    <div className="space-y-8">
-      {/* Featured visual showcase banner */}
-      <div className="relative overflow-hidden rounded-2xl border border-line bg-gradient-to-r from-mist/50 via-white to-mist/30 p-6 sm:p-8">
-        <div className="grid items-center gap-6 lg:grid-cols-[1.2fr_0.8fr]">
-          <div>
-            <span className="eyebrow">{lang === "de" ? "Branchenübergreifende Expertise" : "Cross-Vertical Experience"}</span>
-            <h3 className="mt-2 font-display text-xl font-semibold text-ink sm:text-2xl">
-              {lang === "de" ? "Entwickelt für spezifische betriebliche Anforderungen" : "Engineered for specific operational complexities"}
-            </h3>
-            <p className="mt-3 text-sm leading-relaxed text-muted sm:text-base">
-              {lang === "de"
-                ? "Jede Branche hat ihre eigenen Datenrealitäten, Schemata und Compliance-Hürden. Wir verwenden keine Standard-Schablonen, sondern richten unsere Systeme an den wirtschaftlichen Hebeln Ihres Sektors aus."
-                : "Every industry comes with its own schema realities, compliance hurdles, and cadence requirements. We don't apply cookie-cutter models; we map directly to your sector's unit economics."}
-            </p>
-            <div className="mt-5 flex flex-wrap gap-2 text-xs font-semibold text-royal">
-              <span className="rounded-full border border-royal/20 bg-white px-3 py-1">DSGVO &amp; SOC2</span>
-              <span className="rounded-full border border-royal/20 bg-white px-3 py-1">Sub-second Streaming</span>
-              <span className="rounded-full border border-royal/20 bg-white px-3 py-1">ERP &amp; CRM Unified</span>
-            </div>
-          </div>
-          <div className="relative flex items-center justify-center overflow-hidden rounded-xl border border-line bg-white/60 p-2 shadow-inner">
-            <Image
-              src="/images/industries-work.png"
-              alt="consultfox multi-industry analytics solutions"
-              width={600}
-              height={240}
-              className="h-auto w-full rounded-lg object-cover"
-            />
-          </div>
-        </div>
-      </div>
+    <div className="grid gap-0 divide-y divide-line border-y border-line sm:grid-cols-2 sm:divide-y-0">
+      {industries.map((ind, i) => {
+        const name = lang === "de" ? ind.nameDe : ind.nameEn;
+        const challenge = lang === "de" ? ind.challengeDe : ind.challengeEn;
+        const solution = lang === "de" ? ind.solutionDe : ind.solutionEn;
 
-      {/* Industry Cards */}
-      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {industriesList.map((ind, i) => (
+        return (
           <div
-            key={ind.name}
-            className="group relative flex flex-col justify-between rounded-2xl border border-line bg-white p-6 shadow-2xs transition-all duration-300 hover:-translate-y-1 hover:border-royal hover:shadow-md"
+            key={name}
+            className={`p-6 sm:p-8 flex flex-col justify-between ${
+              i % 2 === 0 ? "sm:border-r sm:border-line" : ""
+            } ${i < industries.length - 2 ? "sm:border-b sm:border-line" : ""}`}
           >
-            <div>
-              <div className="flex items-center justify-between">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-mist/70 transition-transform duration-300 group-hover:scale-110">
-                  {industryIcons[i]}
-                </div>
-              </div>
-              <h3 className="mt-4 font-display text-base font-semibold text-ink transition-colors group-hover:text-royal">
-                {ind.name}
-              </h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted">{ind.description}</p>
+            {/* Title with consistent height */}
+            <div className="h-8 flex items-center gap-2.5">
+              <span className="font-mono text-xs font-semibold text-royal">
+                0{i + 1}
+              </span>
+              <h3 className="font-display text-lg font-semibold text-ink">{name}</h3>
+            </div>
+
+            {/* Relevant Data Challenge — uniform min-height */}
+            <div className="mt-4 min-h-[96px] rounded-control bg-canvas p-3.5 border border-line flex flex-col justify-start">
+              <span className="font-mono text-[11px] uppercase tracking-wider text-secondary font-semibold block">
+                {lang === "de" ? "Typische Datenherausforderung" : "Operational Data Challenge"}
+              </span>
+              <p className="mt-1 text-xs text-secondary leading-relaxed">{challenge}</p>
+            </div>
+
+            {/* Applicable Solution — uniform min-height */}
+            <div className="mt-3 min-h-[96px] rounded-control bg-lavender/30 p-3.5 border border-royal/10 flex flex-col justify-start">
+              <span className="font-mono text-[11px] uppercase tracking-wider text-royal font-semibold block">
+                {lang === "de" ? "Implementierte Lösung" : "Applicable Engineering Solution"}
+              </span>
+              <p className="mt-1 text-xs text-ink leading-relaxed">{solution}</p>
             </div>
           </div>
-        ))}
-      </div>
+        );
+      })}
     </div>
   );
 }

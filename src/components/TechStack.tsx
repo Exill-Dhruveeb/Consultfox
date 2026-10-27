@@ -1,40 +1,105 @@
 "use client";
 
 import Image from "next/image";
-import { techStack } from "@/data/content";
 import { useLanguage } from "@/context/LanguageContext";
 
-const toolLogos: Record<string, string> = {
-  Snowflake: "/images/tech/Snowflake-1.svg",
-  "Microsoft Fabric": "/images/tech/Microsoft-Fabric.svg",
-  BigQuery: "/images/tech/BigQuery.svg",
-  Databricks: "/images/tech/Databricks-2.svg",
-  "Azure Synapse": "/images/tech/Azure-Synapse-1.svg",
-  dbt: "/images/tech/dbt.svg",
-  "Apache Spark": "/images/tech/Apache-Spark-1.svg",
-  "Azure Data Factory": "/images/tech/Azure-Data-Factory.svg",
-  n8n: "/images/tech/N8N.svg",
-  Fivetran: "/images/tech/Fivetran.svg",
-  "Power BI": "/images/tech/Power-BI.svg",
-  Tableau: "/images/tech/Tableau.svg",
-  Looker: "/images/tech/Looker.svg",
-  OpenAI: "/images/tech/OpenAI.svg",
-  "Bland AI": "/images/tech/Bland-AI.svg",
-  Qdrant: "/images/tech/Qdrant-1.svg",
-  LangChain: "/images/tech/LangChain.svg",
-  Cohere: "/images/tech/Cohere.svg",
-  Azure: "/images/tech/Azure.svg",
-  AWS: "/images/tech/AWS.svg",
-  GCP: "/images/tech/GCP.svg",
-};
+interface TechGroup {
+  groupDe: string;
+  groupEn: string;
+  problemDe: string;
+  problemEn: string;
+  tools: {
+    name: string;
+    logo?: string;
+  }[];
+}
 
-const flagshipPartners = [
-  { name: "Snowflake", role: "Cloud Data Platform", roleDe: "Cloud-Datenplattform", logo: "/images/tech/Snowflake-1.svg" },
-  { name: "Microsoft Fabric", role: "Unified Analytics", roleDe: "Einheitliche Analytik", logo: "/images/tech/Microsoft-Fabric.svg" },
-  { name: "Databricks", role: "Data & AI Lakehouse", roleDe: "Data & KI Lakehouse", logo: "/images/tech/Databricks-2.svg" },
-  { name: "OpenAI", role: "Enterprise LLMs", roleDe: "Enterprise LLMs", logo: "/images/tech/OpenAI.svg" },
-  { name: "dbt", role: "Data Transformation", roleDe: "Datentransformation", logo: "/images/tech/dbt.svg" },
-  { name: "Power BI", role: "Business Intelligence", roleDe: "Business Intelligence", logo: "/images/tech/Power-BI.svg" },
+const techGroups: TechGroup[] = [
+  {
+    groupDe: "01. Datenplattformen & Lakehouses",
+    groupEn: "01. Data Platforms & Lakehouses",
+    problemDe:
+      "Löst starre Speichersilos, langsame SQL-Abfragen auf Rohdaten und unkontrollierte Cloud-Compute-Kosten.",
+    problemEn:
+      "Eliminates storage silos, sluggish SQL queries against raw tables, and runaway cloud compute costs.",
+    tools: [
+      { name: "Snowflake", logo: "/images/tech/Snowflake-1.svg" },
+      { name: "Microsoft Fabric", logo: "/images/tech/Microsoft-Fabric.svg" },
+      { name: "Databricks", logo: "/images/tech/Databricks-2.svg" },
+      { name: "Google BigQuery", logo: "/images/tech/BigQuery.svg" },
+      { name: "Azure Synapse", logo: "/images/tech/Azure-Synapse-1.svg" },
+    ],
+  },
+  {
+    groupDe: "02. Datenintegration & Transformation",
+    groupEn: "02. Data Integration & Transformation",
+    problemDe:
+      "Beseitigt manuelle CSV-Exporte, ungetestete SQL-Skripte und fehleranfällige Batch-Laufzeiten.",
+    problemEn:
+      "Replaces fragile CSV exports, unverified SQL snippets, and brittle scheduled syncs with automated ELT pipelines.",
+    tools: [
+      { name: "dbt Core", logo: "/images/tech/dbt.svg" },
+      { name: "Apache Spark", logo: "/images/tech/Apache-Spark-1.svg" },
+      { name: "Azure Data Factory", logo: "/images/tech/Azure-Data-Factory.svg" },
+      { name: "Fivetran", logo: "/images/tech/Fivetran.svg" },
+      { name: "n8n", logo: "/images/tech/N8N.svg" },
+    ],
+  },
+  {
+    groupDe: "03. Business Intelligence & Semantic Layers",
+    groupEn: "03. Business Intelligence & Semantic Layers",
+    problemDe:
+      "Beendet widersprüchliche Kennzahlen in Abteilungen und liefert verlässliche Dashboards mit Sub-Sekunden-Reaktionszeit.",
+    problemEn:
+      "Ends conflicting metric calculations across departments and delivers sub-second dashboard rendering.",
+    tools: [
+      { name: "Power BI", logo: "/images/tech/Power-BI.svg" },
+      { name: "Tableau", logo: "/images/tech/Tableau.svg" },
+      { name: "Looker", logo: "/images/tech/Looker.svg" },
+    ],
+  },
+  {
+    groupDe: "04. KI & Retrieval (RAG)",
+    groupEn: "04. AI & Retrieval (RAG)",
+    problemDe:
+      "Macht unstrukturierte Dokumente präzise durchsuchbar und automatisiert Sprach-/Chatprozesse ohne Halluzinationen.",
+    problemEn:
+      "Surfaces verified answers across unstructured corporate archives and automates conversational workflows without hallucinations.",
+    tools: [
+      { name: "OpenAI", logo: "/images/tech/OpenAI.svg" },
+      { name: "Cohere", logo: "/images/tech/Cohere.svg" },
+      { name: "LangChain", logo: "/images/tech/LangChain.svg" },
+      { name: "Qdrant Vector DB", logo: "/images/tech/Qdrant-1.svg" },
+      { name: "Bland AI", logo: "/images/tech/Bland-AI.svg" },
+    ],
+  },
+  {
+    groupDe: "05. Cloud-Infrastruktur & Hosting",
+    groupEn: "05. Cloud Infrastructure & Hosting",
+    problemDe:
+      "Garantiert DSGVO-konformes Hosting in der EU, isolierte Mandantenfähigkeit und elastische Skalierbarkeit.",
+    problemEn:
+      "Provides strictly GDPR-compliant EU hosting, isolated tenant architectures, and autoscaling compute workloads.",
+    tools: [
+      { name: "Microsoft Azure", logo: "/images/tech/Azure.svg" },
+      { name: "Amazon Web Services (AWS)", logo: "/images/tech/AWS.svg" },
+      { name: "Google Cloud Platform (GCP)", logo: "/images/tech/GCP.svg" },
+    ],
+  },
+  {
+    groupDe: "06. Governance, Schemaschutz & Sicherheit",
+    groupEn: "06. Governance, Schema Defense & Security",
+    problemDe:
+      "Schützt sensible Geschäftsdaten durch rollenbasierte Zugriffskontrollen, Audit-Logging und Schema-Regressionstests.",
+    problemEn:
+      "Protects sensitive business records with role-based access controls, automated schema tests, and audit trails.",
+    tools: [
+      { name: "dbt Tests & Great Expectations" },
+      { name: "Role-Based Access Control (RBAC)" },
+      { name: "DSGVO / GDPR Audit Logging" },
+      { name: "Automated Data Lineage" },
+    ],
+  },
 ];
 
 export default function TechStack() {
@@ -42,88 +107,70 @@ export default function TechStack() {
 
   return (
     <div className="space-y-10">
-      {/* Flagship partner tier */}
-      <div className="rounded-2xl border border-line bg-gradient-to-b from-mist/50 to-white p-6 sm:p-8">
-        <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
-          <div>
-            <span className="eyebrow">{lang === "de" ? "Enterprise Ökosystem" : "Enterprise Ecosystem"}</span>
-            <h3 className="mt-1 font-display text-lg font-semibold text-ink sm:text-xl">
-              {lang === "de" ? "Plattformen, die wir konzipieren, migrieren und skalieren" : "Platforms we architect, migrate, and scale"}
-            </h3>
-          </div>
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-royal/20 bg-royal/5 px-3 py-1 text-xs font-semibold text-royal">
-            <span className="h-1.5 w-1.5 rounded-full bg-royal animate-pulse" />
-            {lang === "de" ? "Zertifizierte Standards" : "Certified Standards"}
-          </span>
-        </div>
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {techGroups.map((g) => {
+          const groupName = lang === "de" ? g.groupDe : g.groupEn;
+          const problem = lang === "de" ? g.problemDe : g.problemEn;
 
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
-          {flagshipPartners.map((partner) => (
+          return (
             <div
-              key={partner.name}
-              className="group flex flex-col items-center justify-center rounded-xl border border-line bg-white p-4 text-center shadow-2xs transition-all duration-300 hover:-translate-y-1 hover:border-royal hover:shadow-md"
+              key={groupName}
+              className="flex flex-col rounded-card border border-line bg-white p-6 shadow-2xs"
             >
-              <div className="relative mb-2.5 flex h-12 w-12 items-center justify-center">
-                <Image
-                  src={partner.logo}
-                  alt={partner.name}
-                  width={40}
-                  height={40}
-                  className="max-h-10 max-w-10 object-contain transition-transform duration-300 group-hover:scale-110"
-                />
+              {/* Title with uniform min-height so 1-line and 2-line titles align */}
+              <div className="min-h-[44px] flex items-center">
+                <h4 className="font-display text-base font-semibold text-ink leading-snug">
+                  {groupName}
+                </h4>
               </div>
-              <span className="font-display text-sm font-semibold text-ink transition-colors group-hover:text-royal">
-                {partner.name}
-              </span>
-              <span className="mt-0.5 text-[11px] text-muted">
-                {lang === "de" ? partner.roleDe : partner.role}
-              </span>
+
+              {/* Problem box with uniform height across all cards */}
+              <div className="mt-3 min-h-[108px] rounded-control bg-canvas p-3 border border-line flex flex-col justify-start">
+                <p className="text-[11px] font-mono uppercase text-secondary font-semibold">
+                  {lang === "de" ? "Gelöstes Problem" : "Problem Solved"}
+                </p>
+                <p className="mt-1 text-xs text-secondary leading-relaxed">
+                  {problem}
+                </p>
+              </div>
+
+              {/* Horizontal divider line — aligned at the EXACT same vertical position */}
+              <div className="mt-5 border-t border-line pt-4 flex-1 flex flex-col justify-start space-y-2">
+                {g.tools.map((tool) => (
+                  <div
+                    key={tool.name}
+                    className="h-7 flex items-center gap-2.5 text-xs text-ink"
+                  >
+                    {tool.logo ? (
+                      <div className="relative flex h-5 w-5 shrink-0 items-center justify-center">
+                        <Image
+                          src={tool.logo}
+                          alt={tool.name}
+                          width={16}
+                          height={16}
+                          className="max-h-4 max-w-4 object-contain"
+                        />
+                      </div>
+                    ) : (
+                      <span className="flex h-5 w-5 shrink-0 items-center justify-center text-royal font-bold text-xs">
+                        •
+                      </span>
+                    )}
+                    <span className="font-medium">{tool.name}</span>
+                  </div>
+                ))}
+              </div>
             </div>
-          ))}
-        </div>
+          );
+        })}
       </div>
 
-      {/* Categorized stack breakdown */}
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {techStack.map((cat) => (
-          <div
-            key={cat.category}
-            className="rounded-2xl border border-line bg-white p-6 shadow-2xs transition-all duration-300 hover:border-royal/50 hover:shadow-xs"
-          >
-            <div className="mb-4 flex items-center justify-between border-b border-line pb-3">
-              <h4 className="font-display text-xs font-semibold uppercase tracking-[0.06em] text-ink">
-                {cat.category}
-              </h4>
-              <span className="rounded-full bg-mist/60 px-2 py-0.5 font-mono text-[10px] font-semibold text-muted">
-                {cat.tools.length} {lang === "de" ? "Tools" : "tools"}
-              </span>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {cat.tools.map((tool) => {
-                const logo = toolLogos[tool];
-                return (
-                  <span
-                    key={tool}
-                    className="inline-flex items-center gap-2 rounded-xl border border-line bg-mist/30 px-3 py-1.5 text-xs font-medium text-ink transition-all hover:border-royal/40 hover:bg-white hover:shadow-2xs"
-                  >
-                    {logo ? (
-                      <Image
-                        src={logo}
-                        alt={tool}
-                        width={16}
-                        height={16}
-                        className="h-4 w-4 object-contain"
-                      />
-                    ) : (
-                      <span className="h-1.5 w-1.5 rounded-full bg-royal" />
-                    )}
-                    <span>{tool}</span>
-                  </span>
-                );
-              })}
-            </div>
-          </div>
-        ))}
+      <div className="rounded-card border border-line bg-canvas p-5 text-center text-xs text-secondary">
+        <p>
+          {lang === "de"
+            ? "Wir zwingen Ihnen keine proprietären Werkzeuge auf. Wir implementieren und optimieren ausschließlich etablierte Standard-Technologien direkt in Ihrer eigenen Cloud-Umgebung."
+            : "We never force proprietary vendor locks. We architect and optimize standard, battle-tested modern data stack technologies directly within your own cloud tenant."}
+        </p>
       </div>
     </div>
   );

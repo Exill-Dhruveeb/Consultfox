@@ -8,21 +8,33 @@ export default function ComparisonTable() {
   const comparison = translations[lang].comparison;
 
   return (
-    <div className="overflow-x-auto rounded-card border border-line">
+    <div className="overflow-x-auto rounded-card border border-line bg-white shadow-2xs">
       <table className="w-full min-w-[720px] border-collapse text-sm">
         <thead>
-          <tr className="border-b border-line bg-mist text-left">
-            <th className="w-[28%] px-5 py-4 font-medium text-muted">{comparison.headers.criterion}</th>
-            <th className="w-[36%] px-5 py-4 font-display font-semibold text-royal">{comparison.headers.consultfox}</th>
-            <th className="w-[36%] px-5 py-4 font-medium text-muted">{comparison.headers.typical}</th>
+          <tr className="border-b border-line bg-canvas text-left">
+            <th className="w-[28%] px-6 py-4 font-mono text-xs font-semibold uppercase tracking-wider text-secondary">
+              {comparison.headers.criterion}
+            </th>
+            <th className="w-[36%] px-6 py-4 font-mono text-xs font-semibold uppercase tracking-wider text-royal">
+              {comparison.headers.consultfox}
+            </th>
+            <th className="w-[36%] px-6 py-4 font-mono text-xs font-semibold uppercase tracking-wider text-secondary">
+              {comparison.headers.typical}
+            </th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className="divide-y divide-line">
           {comparison.rows.map((row) => (
-            <tr key={row.label} className="border-b border-line last:border-0 hover:bg-mist/30 transition-colors">
-              <td className="px-5 py-4 align-top font-medium text-ink">{row.label}</td>
-              <td className="px-5 py-4 align-top text-ink">{row.consultfox}</td>
-              <td className="px-5 py-4 align-top text-muted">{row.typical}</td>
+            <tr key={row.label} className="transition-colors hover:bg-canvas/50">
+              <td className="px-6 py-4.5 align-top font-semibold text-ink text-sm">
+                {row.label}
+              </td>
+              <td className="px-6 py-4.5 align-top text-ink text-sm leading-relaxed">
+                <span className="font-medium">{row.consultfox}</span>
+              </td>
+              <td className="px-6 py-4.5 align-top text-secondary text-sm leading-relaxed">
+                {row.typical}
+              </td>
             </tr>
           ))}
         </tbody>

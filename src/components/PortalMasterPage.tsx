@@ -200,24 +200,20 @@ export default function PortalMasterPage() {
   return (
     <>
       {/* Hero Section */}
-      <section className="relative overflow-hidden border-b border-line bg-gradient-to-b from-white via-mist/20 to-white py-16 sm:py-24 lg:py-28">
-        <div className="pointer-events-none absolute -top-40 right-0 h-[600px] w-[600px] rounded-full bg-royal/10 blur-3xl" />
-        <div className="pointer-events-none absolute -bottom-40 left-0 h-[500px] w-[500px] rounded-full bg-violet/10 blur-3xl" />
-
-        <div className="container-page relative grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+      <section className="border-b border-line bg-canvas py-16 sm:py-24 lg:py-28">
+        <div className="container-page grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
           {/* Left Column */}
           <div>
-            <div className="inline-flex items-center gap-2 rounded-full border border-royal/20 bg-mist/50 px-3.5 py-1.5 text-xs font-semibold text-royal">
-              <span className="h-2 w-2 rounded-full bg-royal animate-pulse" />
+            <div className="inline-flex items-center gap-2 rounded-control border border-line bg-white px-3 py-1 text-xs font-mono font-semibold text-royal">
               <span>{c.heroBadge}</span>
             </div>
 
-            <h1 className="mt-6 font-display text-4xl font-semibold leading-[1.15] text-ink sm:text-5xl lg:text-[52px]">
+            <h1 className="mt-6 font-display text-4xl font-semibold leading-[1.12] text-ink sm:text-5xl lg:text-[52px]">
               {c.heroTitle1}
               <span className="text-royal">{c.heroTitleHighlight}</span>
             </h1>
 
-            <p className="mt-6 max-w-xl text-base leading-relaxed text-muted sm:text-lg">
+            <p className="mt-5 max-w-xl text-base leading-relaxed text-secondary sm:text-lg">
               {c.heroSub}
             </p>
 
@@ -225,7 +221,7 @@ export default function PortalMasterPage() {
             <div className="mt-8 flex flex-wrap items-center gap-4">
               <Link
                 href="/data-science"
-                className="btn-primary shadow-md hover:shadow-lg transition-all"
+                className="btn-primary"
               >
                 {c.heroCtaPrimary}
               </Link>
@@ -235,71 +231,63 @@ export default function PortalMasterPage() {
             </div>
 
             {/* Trust Checklist */}
-            <div className="mt-8 grid grid-cols-2 gap-3 border-t border-line/70 pt-6 sm:grid-cols-4">
+            <div className="mt-10 grid grid-cols-2 gap-3 border-t border-line pt-6 sm:grid-cols-4">
               <div className="flex items-center gap-2 text-xs font-medium text-ink">
-                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-royal/10 font-bold text-royal">
-                  ✓
-                </span>
+                <span className="text-royal font-bold">✓</span>
                 <span>{c.check1}</span>
               </div>
               <div className="flex items-center gap-2 text-xs font-medium text-ink">
-                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-royal/10 font-bold text-royal">
-                  ✓
-                </span>
+                <span className="text-royal font-bold">✓</span>
                 <span>{c.check2}</span>
               </div>
               <div className="flex items-center gap-2 text-xs font-medium text-ink">
-                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-royal/10 font-bold text-royal">
-                  ✓
-                </span>
+                <span className="text-royal font-bold">✓</span>
                 <span>{c.check3}</span>
               </div>
               <div className="flex items-center gap-2 text-xs font-medium text-ink">
-                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-royal/10 font-bold text-royal">
-                  ✓
-                </span>
+                <span className="text-royal font-bold">✓</span>
                 <span>{c.check4}</span>
               </div>
             </div>
           </div>
 
           {/* Right Column: Visual Frame */}
-          <div className="relative">
-            <div className="relative rounded-2xl border border-line bg-white p-6 shadow-xl space-y-4">
+          <div>
+            <div className="rounded-card border border-line bg-white p-6 shadow-xs space-y-4">
               {/* Practice 1: Data & AI (Flagship Card) */}
-              <div className="rounded-xl border border-royal/30 bg-mist/60 p-5 transition-all hover:border-royal hover:shadow-md">
+              <div className="rounded-control border border-royal/30 bg-lavender/40 p-5 transition-all hover:border-royal">
                 <div className="flex items-center justify-between mb-2">
-                  <h3 className="font-display text-base font-bold text-ink">
+                  <h3 className="font-display text-base font-semibold text-ink">
                     {c.cardDsTitle}
                   </h3>
                   <Link
                     href="/data-science"
-                    className="inline-flex items-center text-xs font-semibold text-white bg-royal hover:bg-royal-light px-3 py-1.5 rounded-full transition-colors shadow-xs"
+                    className="inline-flex items-center text-xs font-semibold text-white bg-royal hover:bg-deep px-3 py-1 rounded-control transition-colors"
                   >
                     {c.cardDsAction}
                   </Link>
                 </div>
-                <p className="text-xs text-muted leading-relaxed">
+                <p className="text-xs text-secondary leading-relaxed">
                   {c.cardDsDesc}
                 </p>
               </div>
 
               {/* Practice 2: Study Abroad */}
-              <div className="rounded-xl border border-line bg-white p-5 transition-all hover:border-royal/40">
-                <h3 className="font-display text-base font-bold text-ink mb-2">
+              <div className="rounded-control border border-line bg-canvas p-5 transition-all hover:border-royal/40">
+                <h3 className="font-display text-base font-semibold text-ink mb-2">
                   {c.cardSaTitle}
                 </h3>
-                <p className="text-xs text-muted leading-relaxed">
+                <p className="text-xs text-secondary leading-relaxed">
                   {c.cardSaDesc}
                 </p>
               </div>
 
               {/* Practice 3: Solar Services */}
-              <div className="rounded-xl border border-line bg-white p-5 transition-all hover:border-royal/40">
-                <h3 className="font-display text-base font-bold text-ink mb-2">
+              <div className="rounded-control border border-line bg-canvas p-5 transition-all hover:border-royal/40">
+                <h3 className="font-display text-base font-semibold text-ink mb-2">
                   {c.cardSoTitle}
                 </h3>
-                <p className="text-xs text-muted leading-relaxed">
+                <p className="text-xs text-secondary leading-relaxed">
                   {c.cardSoDesc}
                 </p>
               </div>
@@ -323,15 +311,17 @@ export default function PortalMasterPage() {
 
           <div className="grid gap-8 lg:grid-cols-3">
             {/* 1. DATA SCIENCE & AI (FLAGSHIP) */}
-            <div className="rounded-2xl border-2 border-royal bg-gradient-to-b from-white to-mist/40 p-8 shadow-lg flex flex-col justify-between hover:shadow-xl transition-all">
+            <div className="rounded-card border-2 border-royal bg-white p-8 shadow-xs flex flex-col justify-between">
               <div>
-                <span className="inline-block font-mono text-[11px] font-semibold text-royal uppercase tracking-wider mb-3 bg-royal-subtle px-2.5 py-1 rounded">
+                <span className="inline-block font-mono text-[11px] font-semibold text-royal uppercase tracking-wider mb-3 bg-lavender/40 px-2.5 py-0.5 rounded-control">
                   {c.dsBadge}
                 </span>
-                <h3 className="font-display text-2xl font-bold text-ink mb-3">
-                  {c.dsTitle}
-                </h3>
-                <p className="text-sm text-muted leading-relaxed mb-6">
+                <div className="min-h-[40px] flex items-center mb-3">
+                  <h3 className="font-display text-2xl font-semibold text-ink leading-tight">
+                    {c.dsTitle}
+                  </h3>
+                </div>
+                <p className="min-h-[72px] text-sm text-secondary leading-relaxed mb-6">
                   {c.dsBody}
                 </p>
                 <ul className="space-y-2.5 text-xs text-ink mb-8">
@@ -355,7 +345,7 @@ export default function PortalMasterPage() {
               </div>
               <Link
                 href="/data-science"
-                className="btn-primary w-full justify-center text-center shadow-md hover:shadow-lg transition-all"
+                className="btn-primary w-full justify-center text-center"
               >
                 {c.dsCta}
               </Link>
@@ -363,17 +353,19 @@ export default function PortalMasterPage() {
 
             {/* 2. STUDY ABROAD */}
             <div
-              className="rounded-2xl border border-line bg-white p-8 shadow-sm flex flex-col justify-between hover:border-royal/40 hover:shadow-md transition-all"
+              className="rounded-card border border-line bg-white p-8 shadow-xs flex flex-col justify-between hover:border-royal/40 transition-all"
               id="study-abroad"
             >
               <div>
-                <span className="inline-block font-mono text-[11px] font-semibold text-royal uppercase tracking-wider mb-3 bg-mist px-2.5 py-1 rounded">
+                <span className="inline-block font-mono text-[11px] font-semibold text-secondary uppercase tracking-wider mb-3 bg-canvas px-2.5 py-0.5 rounded-control">
                   {c.saBadge}
                 </span>
-                <h3 className="font-display text-2xl font-bold text-ink mb-3">
-                  {c.saTitle}
-                </h3>
-                <p className="text-sm text-muted leading-relaxed mb-6">
+                <div className="min-h-[40px] flex items-center mb-3">
+                  <h3 className="font-display text-2xl font-semibold text-ink leading-tight">
+                    {c.saTitle}
+                  </h3>
+                </div>
+                <p className="min-h-[72px] text-sm text-secondary leading-relaxed mb-6">
                   {c.saBody}
                 </p>
                 <ul className="space-y-2.5 text-xs text-ink mb-8">
@@ -405,17 +397,19 @@ export default function PortalMasterPage() {
 
             {/* 3. SOLAR SERVICES */}
             <div
-              className="rounded-2xl border border-line bg-white p-8 shadow-sm flex flex-col justify-between hover:border-royal/40 hover:shadow-md transition-all"
+              className="rounded-card border border-line bg-white p-8 shadow-xs flex flex-col justify-between hover:border-royal/40 transition-all"
               id="solar-services"
             >
               <div>
-                <span className="inline-block font-mono text-[11px] font-semibold text-royal uppercase tracking-wider mb-3 bg-mist px-2.5 py-1 rounded">
+                <span className="inline-block font-mono text-[11px] font-semibold text-secondary uppercase tracking-wider mb-3 bg-canvas px-2.5 py-0.5 rounded-control">
                   {c.soBadge}
                 </span>
-                <h3 className="font-display text-2xl font-bold text-ink mb-3">
-                  {c.soTitle}
-                </h3>
-                <p className="text-sm text-muted leading-relaxed mb-6">
+                <div className="min-h-[40px] flex items-center mb-3">
+                  <h3 className="font-display text-2xl font-semibold text-ink leading-tight">
+                    {c.soTitle}
+                  </h3>
+                </div>
+                <p className="min-h-[72px] text-sm text-secondary leading-relaxed mb-6">
                   {c.soBody}
                 </p>
                 <ul className="space-y-2.5 text-xs text-ink mb-8">

@@ -5,11 +5,15 @@
 @layer base {
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 96px;
+    scroll-padding-top: 80px;
+    background-color: #FAF9F6;
   }
 
   body {
+    background-color: #FAF9F6;
+    color: #20211F;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    -webkit-font-smoothing: antialiased;
   }
 
   h1,
@@ -17,7 +21,8 @@
   h3,
   h4 {
     font-family: var(--font-display);
-    letter-spacing: -0.01em;
+    letter-spacing: -0.02em;
+    color: #20211F;
   }
 
   :focus-visible {
@@ -28,7 +33,7 @@
 
   ::selection {
     background: theme("colors.lavender");
-    color: theme("colors.deep");
+    color: theme("colors.ink");
   }
 }
 
@@ -38,27 +43,42 @@
   }
 
   .eyebrow {
-    @apply font-mono text-[11px] uppercase tracking-[0.08em] text-royal;
+    @apply font-mono text-[11px] uppercase tracking-[0.1em] text-royal;
   }
 
+  /* Primary CTA — solid purple, square corners, confident */
   .btn-primary {
     @apply inline-flex items-center justify-center gap-2 rounded-control bg-royal px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-deep focus-visible:outline-offset-4;
   }
 
+  /* Secondary — outlined, same geometry */
   .btn-secondary {
-    @apply inline-flex items-center justify-center gap-2 rounded-control border border-line px-5 py-3 text-sm font-medium text-ink transition-colors hover:border-ink;
+    @apply inline-flex items-center justify-center gap-2 rounded-control border border-line px-5 py-3 text-sm font-medium text-ink transition-colors hover:border-ink hover:bg-white;
   }
 
+  /* Ghost text link */
   .btn-text {
     @apply inline-flex items-center gap-1.5 text-sm font-semibold text-royal transition-colors hover:text-deep;
   }
 
+  /* Bordered card */
   .card {
     @apply rounded-card border border-line bg-white p-6;
   }
 
+  /* Tinted background card */
   .card-tint {
     @apply rounded-card bg-mist p-6;
+  }
+
+  /* Section tint — warm off-white rather than grey */
+  .section-tint {
+    background-color: #F5F4F0;
+  }
+
+  .royal-subtle,
+  .bg-royal-subtle {
+    background-color: #F0ECFA;
   }
 }
 
