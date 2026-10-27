@@ -8,9 +8,4 @@ export const footerCompanyLinks = [
   { label: "Contact Us", href: "/contact" },
 ];
 
-export const footerLegalLinks = [
-  { label: "Sitemap", href: "/sitemap" },
-  { label: "Terms of Use", href: "/terms-of-use" },
-  { label: "Disclaimer", href: "/disclaimer" },
-  { label: "Privacy Policy", href: "/privacy-policy" },
-];
+export const footerLegalLinks: { label: string; href: string }[] = [];
