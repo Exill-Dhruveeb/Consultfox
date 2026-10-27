@@ -1,18 +1,93 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import Logo from "@/components/Logo";
-import { footerCompanyLinks, footerLegalLinks } from "@/data/nav";
+import { footerLegalLinks } from "@/data/nav";
 import { serviceGroups, services } from "@/data/services";
 import { companyInfo } from "@/data/content";
 import { useLanguage } from "@/context/LanguageContext";
 import { translations, serviceTranslations } from "@/data/translations";
-import LanguageToggle from "@/components/LanguageToggle";
 
 export default function Footer() {
+  const pathname = usePathname();
+  const isPortal = pathname === "/";
   const { lang } = useLanguage();
   const t = translations[lang];
 
+  if (isPortal) {
+    return (
+      <footer className="border-t border-line bg-mist">
+        <div className="container-page py-16">
+          <div className="grid gap-12 lg:grid-cols-[1.5fr_1fr_1fr]">
+            <div>
+              <Logo />
+              <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted">
+                {lang === "de"
+                  ? "Ganzheitliche Beratung für Data & AI Engineering, internationale Bildung und saubere Solarenergie."
+                  : "End-to-end consulting across Data & AI Engineering, international education, and clean solar energy."}
+              </p>
+            </div>
+
+            <div>
+              <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.06em] text-muted">
+                {lang === "de" ? "Fachbereiche" : "Practices"}
+              </p>
+              <ul className="space-y-2.5 text-sm">
+                <li>
+                  <Link
+                    href="/data-science"
+                    className="font-semibold text-royal hover:underline"
+                  >
+                    {lang === "de" ? "Data Science & KI" : "Data Science & AI"}
+                  </Link>
+                </li>
+                <li>
+                  <a href="#study-abroad" className="text-ink hover:text-royal transition-colors">
+                    Study Abroad
+                  </a>
+                </li>
+                <li>
+                  <a href="#solar-services" className="text-ink hover:text-royal transition-colors">
+                    Solar Services
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.06em] text-muted">
+                {lang === "de" ? "Kontakt" : "Contact"}
+              </p>
+              <ul className="space-y-2 text-sm text-muted">
+                <li className="text-ink font-medium">Wilmersdorfer Str. 60</li>
+                <li>10627 Berlin, Deutschland</li>
+                <li>
+                  <a href="tel:+491634253066" className="text-royal font-medium hover:underline">
+                    +49 1634253066
+                  </a>
+                </li>
+                <li>
+                  <a href="mailto:info@consultfox.de" className="text-royal font-medium hover:underline">
+                    info@consultfox.de
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="mt-12 flex flex-col gap-4 border-t border-line pt-6 text-xs text-muted sm:flex-row sm:items-center sm:justify-between">
+            <p>© {new Date().getFullYear()} consultfox. {lang === "de" ? "Alle Rechte vorbehalten." : "All rights reserved."}</p>
+            <div className="flex items-center gap-2">
+              <span>Berlin, Deutschland</span>
+            </div>
+          </div>
+        </div>
+      </footer>
+    );
+  }
+
+  /* Full Platform Footer */
   return (
     <footer className="border-t border-line bg-mist">
       <div className="container-page py-16">
@@ -110,8 +185,7 @@ export default function Footer() {
 
         <div className="mt-10 flex flex-col gap-4 border-t border-line pt-6 text-xs text-muted sm:flex-row sm:items-center sm:justify-between">
           <p>© {new Date().getFullYear()} consultfox. {t.footer.copyright}</p>
-          <div className="flex flex-wrap items-center gap-4">
-            <LanguageToggle size="sm" />
+          <div className="flex flex-wrap items-center gap-5">
             {footerLegalLinks.map((l) => (
               <Link key={l.href} href={l.href} className="hover:text-royal transition-colors">
                 {l.label}

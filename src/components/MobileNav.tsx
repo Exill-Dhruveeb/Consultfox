@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import { services, serviceGroups } from "@/data/services";
 import LanguageToggle from "@/components/LanguageToggle";
 import { useLanguage } from "@/context/LanguageContext";
@@ -9,6 +10,8 @@ import { translations, serviceTranslations } from "@/data/translations";
 
 export default function MobileNav({ open, onClose }: { open: boolean; onClose: () => void }) {
   const [servicesExpanded, setServicesExpanded] = useState(false);
+  const pathname = usePathname();
+  const isPortal = pathname === "/";
   const { lang } = useLanguage();
   const t = translations[lang];
 
@@ -38,57 +41,113 @@ export default function MobileNav({ open, onClose }: { open: boolean; onClose: (
           </button>
         </div>
 
-        <nav className="flex flex-1 flex-col gap-1 px-5 py-4">
-          <button
-            className="flex items-center justify-between py-3 text-base font-medium text-ink"
-            aria-expanded={servicesExpanded}
-            onClick={() => setServicesExpanded((v) => !v)}
-          >
-            {t.nav.services}
-            <svg
-              width="12" height="8" viewBox="0 0 12 8" fill="none" aria-hidden="true"
-              className={`transition-transform ${servicesExpanded ? "rotate-180" : ""}`}
+        {isPortal ? (
+          /* Portal Navigation on Mobile */
+          <nav className="flex flex-1 flex-col gap-1 px-5 py-4">
+            <Link
+              href="/data-science"
+              className="py-3 text-base font-semibold text-royal border-b border-line"
+              onClick={onClose}
             >
-              <path d="M1 1L6 6L11 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-            </svg>
-          </button>
-
-          {servicesExpanded && (
-            <div className="mb-2 flex flex-col gap-4 border-l border-line pb-2 pl-4">
-              {serviceGroups.map((group) => (
-                <div key={group}>
-                  <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.06em] text-muted">{group}</p>
-                  <ul className="space-y-2">
-                    {services
-                      .filter((s) => s.group === group)
-                      .map((s) => {
-                        const localizedName = serviceTranslations[s.slug]?.[lang]?.name || s.name;
-                        return (
-                          <li key={s.slug}>
-                            <Link href={`/services/${s.slug}`} className="text-sm text-ink" onClick={onClose}>
-                              {localizedName}
-                            </Link>
-                          </li>
-                        );
-                      })}
-                  </ul>
-                </div>
-              ))}
+              {lang === "de" ? "Data Science & KI Plattform →" : "Data Science & AI Platform →"}
+            </Link>
+            <a
+              href="#study-abroad"
+              className="py-3 text-base font-medium text-ink border-b border-line"
+              onClick={onClose}
+            >
+              Study Abroad
+            </a>
+            <a
+              href="#solar-services"
+              className="py-3 text-base font-medium text-ink border-b border-line"
+              onClick={onClose}
+            >
+              Solar Services
+            </a>
+            <a
+              href="#contact"
+              className="py-3 text-base font-medium text-ink"
+              onClick={onClose}
+            >
+              {lang === "de" ? "Standort & Kontakt" : "Location & Contact"}
+            </a>
+            <div className="mt-6">
+              <a
+                href="#contact"
+                className="btn-primary w-full justify-center"
+                onClick={onClose}
+              >
+                {lang === "de" ? "Erstgespräch anfragen" : "Book Discovery Call"}
+              </a>
             </div>
-          )}
+          </nav>
+        ) : (
+          /* Platform Navigation on Mobile */
+          <nav className="flex flex-1 flex-col gap-1 px-5 py-4">
+            <Link
+              href="/"
+              className="py-2.5 text-xs font-semibold text-royal bg-royal-subtle px-3 rounded-lg mb-2 inline-flex items-center gap-1"
+              onClick={onClose}
+            >
+              <span>←</span>
+              <span>{lang === "de" ? "Zurück zur Gesamtübersicht" : "Back to Overview"}</span>
+            </Link>
 
-          <Link
-            href="/case-studies"
-            className="border-t border-line py-3 text-base font-medium text-ink"
-            onClick={onClose}
-          >
-            {t.nav.caseStudies}
-          </Link>
+            <button
+              className="flex items-center justify-between py-3 text-base font-medium text-ink"
+              aria-expanded={servicesExpanded}
+              onClick={() => setServicesExpanded((v) => !v)}
+            >
+              {t.nav.services}
+              <svg
+                width="12" height="8" viewBox="0 0 12 8" fill="none" aria-hidden="true"
+                className={`transition-transform ${servicesExpanded ? "rotate-180" : ""}`}
+              >
+                <path d="M1 1L6 6L11 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+              </svg>
+            </button>
 
-          <Link href="/contact" className="btn-primary mt-4 w-full" onClick={onClose}>
-            {t.nav.contact}
-          </Link>
-        </nav>
+            {servicesExpanded && (
+              <div className="mb-2 flex flex-col gap-4 border-l border-line pb-2 pl-4">
+                {serviceGroups.map((group) => (
+                  <div key={group}>
+                    <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.06em] text-muted">{group}</p>
+                    <ul className="space-y-2">
+                      {services
+                        .filter((s) => s.group === group)
+                        .map((s) => {
+                          const localizedName = serviceTranslations[s.slug]?.[lang]?.name || s.name;
+                          return (
+                            <li key={s.slug}>
+                              <Link href={`/services/${s.slug}`} className="text-sm text-ink" onClick={onClose}>
+                                {localizedName}
+                              </Link>
+                            </li>
+                          );
+                        })}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            <Link
+              href="/case-studies"
+              className="border-t border-line py-3 text-base font-medium text-ink"
+              onClick={onClose}
+            >
+              {t.nav.caseStudies}
+            </Link>
+            <Link
+              href="/contact"
+              className="btn-primary mt-4 w-full justify-center text-center"
+              onClick={onClose}
+            >
+              {t.nav.contact}
+            </Link>
+          </nav>
+        )}
       </div>
     </div>
   );
