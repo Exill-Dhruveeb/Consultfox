@@ -19,7 +19,7 @@ export default function Header() {
   const t = translations[lang];
 
   return (
-    <header className="sticky top-0 z-40 border-b border-line bg-white/95 backdrop-blur">
+    <header className="sticky top-0 z-40 border-b border-line bg-white">
       <div className="container-page flex h-20 items-center justify-between">
         <div className="flex items-center gap-3">
           <Link href={isPortal ? "/" : "/data-science"} aria-label="consultfox home" className="shrink-0">
